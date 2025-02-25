@@ -4,9 +4,9 @@ const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
 const isGitHubPages = location.hostname === 'ezequielleonzybert.github.io';
-const baseImageUrl = isGitHubPages
-    ? 'https://raw.githubusercontent.com/ezequielleonzybert/catalog-test/refs/heads/main/docs/images/'
-    : 'images/';
+const baseUrl = isGitHubPages
+    ? 'https://raw.githubusercontent.com/ezequielleonzybert/catalog-test/refs/heads/main/docs/'
+    : '';
 
 fetch('data/products.csv')
     .then(response => response.text())
@@ -44,7 +44,7 @@ async function renderProducts(parsedProducts) {
         productElement.setAttribute('data-tags', product.tags);
 
         const formattedName = formatProductName(product.name);
-        const imageUrl = `${baseImageUrl}${formattedName}/0.webp`;
+        const imageUrl = `${baseUrl}images/${formattedName}/0.webp`;
 
         const img = document.createElement('img');
         img.src = imageUrl;
@@ -176,7 +176,7 @@ async function loadGallery(formattedProductName) {
     while (true) {
         let found = false;
         for (const ext of extensions) {
-            const imageUrl = `${baseImageUrl}${formattedProductName}/${index}.${ext}`;
+            const imageUrl = `${baseUrl}images/${formattedProductName}/${index}.${ext}`;
             try {
                 await loadImage(imageUrl);
                 const img = document.createElement('img');
