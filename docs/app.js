@@ -4,7 +4,7 @@ const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
 const isGitHubPages = location.hostname === 'ezequielleonzybert.github.io';
-const baseUrl;
+let baseUrl;
 const fontLink = document.createElement("link");
 fontLink.rel = "stylesheet";
 if (isGitHubPages) {
