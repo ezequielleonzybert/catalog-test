@@ -238,9 +238,9 @@ async function loadGallery(formattedProductName) {
 
                 if (event.target.closest(".arrow-side")) {
                     if (event.target.closest(".arrow-left")) {
-                        galleryContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+                        galleryContainer.scrollBy({ left: -scrollAmount });
                     } else {
-                        galleryContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
+                        galleryContainer.scrollBy({ left: scrollAmount });
                     }
                 }
             });
