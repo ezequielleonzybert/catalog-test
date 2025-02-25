@@ -191,10 +191,7 @@ async function loadGallery(formattedProductName) {
 
     // Insertar la galería y los puntos en el modal
     modalContent.prepend(galleryContainer);
-    modalContent.appendChild(dotsContainer); // dots-container como hermano de scroll-gallery
-
-    // Habilitar el arrastre para el scroll
-    // enableDragScroll(galleryContainer);
+    modalContent.appendChild(dotsContainer);
 
     // Actualizar los puntos al desplazarse
     galleryContainer.addEventListener('scroll', () => {
@@ -223,16 +220,29 @@ async function loadGallery(formattedProductName) {
             });
         });
     });
+
+    //ARROW-SIDE
+    fetch("./images/icons/arrow-side.svg")
+        .then(res => res.text())
+        .then(data => {
+            let arrowRight = new DOMParser().parseFromString(data, "image/svg+xml").querySelector("svg");
+            let arrowLeft = new DOMParser().parseFromString(data, "image/svg+xml").querySelector("svg");
+            arrowRight.classList.add("arrow-side");
+            arrowLeft.classList.add("arrow-side", "arrow-left")
+            document.querySelector(".modal-content").appendChild(arrowRight);
+            document.querySelector(".modal-content").appendChild(arrowLeft);
+        })
+        .catch(err => console.error("Error:", err));
+
 }
 
 function openModal(productData) {
     if (!productData) return;
 
-    // Cargar imágenes
+    const modalContent = document.querySelector('.modal-content');
+
     loadGallery(cleanText(productData.name));
 
-    // Insertar los datos en el modal
-    const modalContent = document.querySelector('.modal-content');
     const formattedPrice = Number(productData.price).toLocaleString('es-AR');
     modalContent.innerHTML = `
         <div class="product-info">

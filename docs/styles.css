@@ -178,6 +178,8 @@ nav.menu {
     flex-direction: row;
     align-items: stretch;
     position: relative;
+
+    /* background-color: red; */
 }
 
 .scroll-gallery {
@@ -267,6 +269,31 @@ nav.menu {
 .dot.active {
     background-color: grey;
 }
+
+.arrow-side {
+    cursor: pointer;
+    position: absolute;
+    height: 10%;
+    fill: grey;
+    top: 50%;
+    right: 40%;
+    transform: translateY(-50%) translateX(-100%);
+    opacity: 0;
+    transition: all 0.3s;
+
+    /* background-color: aquamarine; */
+}
+
+.arrow-left {
+    left: 0%;
+    transform: translateY(-50%) translateX(100%) scaleX(-1);
+}
+
+.scroll-gallery:hover~.arrow-side,
+.arrow-side:hover {
+    opacity: 1;
+}
+
 
 @media (max-width: 800px) {
 
@@ -448,4 +475,8 @@ nav.menu {
 
 .no-scroll {
     position: fixed;
+}
+
+.flip-horizontal {
+    transform: scaleX(-1);
 }
