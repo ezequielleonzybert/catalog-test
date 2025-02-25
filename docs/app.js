@@ -5,7 +5,7 @@ let productDataArray = [];
 
 const isGitHubPages = location.hostname === 'ezequielleonzybert.github.io';
 const baseImageUrl = isGitHubPages
-    ? 'https://raw.githubusercontent.com/ezequielleonzybert/catalogo/refs/heads/main/docs/images/'
+    ? 'https://raw.githubusercontent.com/ezequielleonzybert/catalog-test/refs/heads/main/docs/images/'
     : 'images/';
 
 fetch('data/products.csv')
