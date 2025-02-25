@@ -12,18 +12,30 @@ fetch('./data/products.csv')
     .catch(error => console.error('Error fetching the CSV file:', error));
 
 function parseCSV(data) {
-    const rows = data.split('\n').slice(1) // Omitir la cabecera
-        .filter(row => row.trim() !== ""); // Eliminar líneas vacías
+    const rows = data.split('\n').slice(1); // Omitir la cabecera
 
-    return rows.map(row => {
-        const values = row.match(/(".*?"|[^,]+)/g) || []; // Si es null, devuelve []
-        const [name = '', price = '', description = '', category = '', tags = ''] = values.map(val =>
-            val.replace(/^"|"$/g, '').trim()
-        );
+    return rows
+        .filter(row => row.trim() !== "") // Ignorar líneas vacías
+        .map(row => {
+            // Expresión regular para dividir en comas, ignorando las dentro de comillas
+            const regex = /(".*?"|[^,]+)(?=\s*,|\s*$)/g;
+            const matches = [...row.matchAll(regex)].map(m => m[0]);
 
-        return { name, price, description, category, tags };
-    });
+            // Eliminar comillas externas si hay
+            const cleanValues = matches.map(value => value.replace(/^"|"$/g, ''));
+
+            const [name, price, description, category, tags] = cleanValues;
+
+            return {
+                name,
+                price,
+                description,
+                category: category ? category.trim() : '',
+                tags: tags ? tags.toLowerCase().trim() : ''
+            };
+        });
 }
+
 
 async function renderProducts(parsedProducts) {
     productCatalog.innerHTML = '';
