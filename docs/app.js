@@ -231,6 +231,19 @@ async function loadGallery(formattedProductName) {
             arrowLeft.classList.add("arrow-side", "arrow-left")
             document.querySelector(".modal-content").appendChild(arrowRight);
             document.querySelector(".modal-content").appendChild(arrowLeft);
+
+            // Agregar event listener después de insertar las flechas
+            modalContent.addEventListener("click", (event) => {
+                const scrollAmount = galleryContainer.clientWidth; // Se mueve por el ancho de la galería
+
+                if (event.target.closest(".arrow-side")) {
+                    if (event.target.closest(".arrow-left")) {
+                        galleryContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+                    } else {
+                        galleryContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
+                    }
+                }
+            });
         })
         .catch(err => console.error("Error:", err));
 
