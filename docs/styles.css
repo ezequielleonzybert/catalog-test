@@ -153,13 +153,6 @@ nav.menu {
     font-weight: 600;
 }
 
-.price {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: small;
-    color: #d4976e;
-    margin: 5px 0;
-}
-
 .modal {
     position: fixed;
     z-index: 100;
@@ -197,8 +190,11 @@ nav.menu {
     align-items: center;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    /* cursor: grab; */
     user-select: none;
+    border: 1px solid grey;
+    border-radius: 3px;
+    margin: 10px;
+    cursor: zoom-in;
 
     /* background-color: #d4976e; */
 }
@@ -219,46 +215,57 @@ nav.menu {
     flex-direction: column;
     flex: 0.4;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: left;
+    gap: 10px;
+    padding: 10px;
+    padding-left: 0;
+    overflow: auto;
+
+    /* background-color: chartreuse; */
 }
 
 .product-info h2 {
     font-size: large;
+    padding: 0;
+    margin: 0;
 }
 
 .product-info .description {
-    padding: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 .product-info .price {
-    font-size: large;
-    padding-bottom: 20px;
+    font-size: x-large;
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .dots-container {
     position: absolute;
     justify-content: center;
     width: 60%;
-    bottom: 10px;
+    bottom: 17px;
     display: flex;
     gap: 15px;
 
-    /* background-color: aquamarine; */
+    /* background-color: rgba(127, 255, 212, 0.486); */
 }
 
 .dot {
     width: 10px;
     height: 10px;
     background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(33, 33, 33);
+    border: 1px solid grey;
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .dot.active {
-    background-color: rgb(33, 33, 33);
+    background-color: grey;
 }
 
 @media (max-width: 800px) {
@@ -362,10 +369,17 @@ nav.menu {
     .scroll-gallery {
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
+        min-height: 60%;
     }
 
     .modal .modal-content {
         flex-direction: column;
+    }
+
+    .product-info {
+        flex-basis: 40%;
+        padding: 10px;
+        padding-top: 0;
     }
 
     .dots-container {
@@ -373,10 +387,11 @@ nav.menu {
         display: flex;
         width: 100%;
         gap: 15px;
-        top: 58%;
+        top: 60%;
         /*me gusta más ahi*/
         bottom: auto;
-        transform: translateY(-100%);
+        transform: translateY(-50%);
+        /* display: none; */
     }
 }
 

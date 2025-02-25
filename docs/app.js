@@ -44,7 +44,6 @@ async function renderProducts(parsedProducts) {
         const formattedPrice = Number(product.price).toLocaleString('es-AR');
         productElement.innerHTML += `
             <h2>${product.name}</h2>
-            <p class="price">$${formattedPrice}</p>
         `;
 
         productCatalog.appendChild(productElement);
@@ -195,7 +194,7 @@ async function loadGallery(formattedProductName) {
     modalContent.appendChild(dotsContainer); // dots-container como hermano de scroll-gallery
 
     // Habilitar el arrastre para el scroll
-    enableDragScroll(galleryContainer);
+    // enableDragScroll(galleryContainer);
 
     // Actualizar los puntos al desplazarse
     galleryContainer.addEventListener('scroll', () => {
@@ -238,8 +237,8 @@ function openModal(productData) {
     modalContent.innerHTML = `
         <div class="product-info">
             <h2>${productData.name}</h2>
-            <p class="description">${productData.description}</p>
             <p class="price">$${formattedPrice}</p>
+            <p class="description">${productData.description}</p>
         </div>
     `;
 
@@ -310,71 +309,71 @@ function cleanText(texto) {
         .toLowerCase();
 }
 
-function enableDragScroll(galleryContainer) {
-    let isDragging = false;
-    let startX, scrollLeft;
+// function enableDragScroll(galleryContainer) {
+//     let isDragging = false;
+//     let startX, scrollLeft;
 
-    galleryContainer.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.pageX;
-        scrollLeft = galleryContainer.scrollLeft;
-        galleryContainer.style.cursor = 'grabbing';
-        e.preventDefault();
-    });
+//     galleryContainer.addEventListener('mousedown', (e) => {
+//         isDragging = true;
+//         startX = e.pageX;
+//         scrollLeft = galleryContainer.scrollLeft;
+//         galleryContainer.style.cursor = 'grabbing';
+//         e.preventDefault();
+//     });
 
-    galleryContainer.addEventListener('mouseleave', () => {
-        if (isDragging) {
-            isDragging = false;
-            galleryContainer.style.cursor = 'grab';
-            snapToNearestImage(galleryContainer)
-        }
-    });
+//     galleryContainer.addEventListener('mouseleave', () => {
+//         if (isDragging) {
+//             isDragging = false;
+//             galleryContainer.style.cursor = 'grab';
+//             snapToNearestImage(galleryContainer)
+//         }
+//     });
 
-    galleryContainer.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            galleryContainer.style.cursor = 'grab';
-            snapToNearestImage(galleryContainer)
-        }
-    });
+//     galleryContainer.addEventListener('mouseup', () => {
+//         if (isDragging) {
+//             isDragging = false;
+//             galleryContainer.style.cursor = 'grab';
+//             snapToNearestImage(galleryContainer)
+//         }
+//     });
 
-    galleryContainer.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX;
-        const walk = (x - startX) * 1.5;
-        galleryContainer.scrollLeft = scrollLeft - walk;
-    });
-}
+//     galleryContainer.addEventListener('mousemove', (e) => {
+//         if (!isDragging) return;
+//         e.preventDefault();
+//         const x = e.pageX;
+//         const walk = (x - startX) * 1.5;
+//         galleryContainer.scrollLeft = scrollLeft - walk;
+//     });
+// }
 
-function snapToNearestImage(galleryContainer) {
-    const images = galleryContainer.querySelectorAll('img');
-    const galleryScrollLeft = galleryContainer.scrollLeft;
-    const galleryWidth = galleryContainer.clientWidth;
+// function snapToNearestImage(galleryContainer) {
+//     const images = galleryContainer.querySelectorAll('img');
+//     const galleryScrollLeft = galleryContainer.scrollLeft;
+//     const galleryWidth = galleryContainer.clientWidth;
 
-    let closestImage = null;
-    let closestDistance = Infinity;
+//     let closestImage = null;
+//     let closestDistance = Infinity;
 
-    // Encuentra la imagen más cercana al scroll actual
-    images.forEach((img, index) => {
-        const imgLeft = index * galleryWidth; // Posición de la imagen
-        const distance = Math.abs(galleryScrollLeft - imgLeft);
+//     // Encuentra la imagen más cercana al scroll actual
+//     images.forEach((img, index) => {
+//         const imgLeft = index * galleryWidth; // Posición de la imagen
+//         const distance = Math.abs(galleryScrollLeft - imgLeft);
 
-        if (distance < closestDistance) {
-            closestDistance = distance;
-            closestImage = img;
-        }
-    });
+//         if (distance < closestDistance) {
+//             closestDistance = distance;
+//             closestImage = img;
+//         }
+//     });
 
-    // Ajusta el scroll a la imagen más cercana
-    if (closestImage) {
-        const targetScrollLeft = Array.from(images).indexOf(closestImage) * galleryWidth;
-        galleryContainer.scrollTo({
-            left: targetScrollLeft,
-            behavior: 'smooth', // Desplazamiento suave
-        });
-    }
-}
+//     // Ajusta el scroll a la imagen más cercana
+//     if (closestImage) {
+//         const targetScrollLeft = Array.from(images).indexOf(closestImage) * galleryWidth;
+//         galleryContainer.scrollTo({
+//             left: targetScrollLeft,
+//             behavior: 'smooth', // Desplazamiento suave
+//         });
+//     }
+// }
 
 //LOADER ANIMATION
 
