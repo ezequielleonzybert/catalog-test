@@ -12,19 +12,16 @@ fetch('./data/products.csv')
     .catch(error => console.error('Error fetching the CSV file:', error));
 
 function parseCSV(data) {
-    const rows = data.split('\n').slice(1); // Omitir la cabecera
+    const rows = data.split('\n').slice(1) // Omitir la cabecera
+        .filter(row => row.trim() !== ""); // Eliminar líneas vacías
+
     return rows.map(row => {
-        const values = row.match(/(".*?"|[^,]+)/g).map(val =>
-            val.replace(/^"|"$/g, '').trim() // Quitar comillas dobles externas
+        const values = row.match(/(".*?"|[^,]+)/g) || []; // Si es null, devuelve []
+        const [name = '', price = '', description = '', category = '', tags = ''] = values.map(val =>
+            val.replace(/^"|"$/g, '').trim()
         );
-        const [name, price, description, category, tags] = values;
-        return {
-            name,
-            price,
-            description,
-            category: category ? category.trim() : '',
-            tags: tags ? tags.toLowerCase().trim() : ''
-        };
+
+        return { name, price, description, category, tags };
     });
 }
 
