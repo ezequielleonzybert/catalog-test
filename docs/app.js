@@ -161,7 +161,6 @@ async function loadGallery(formattedProductName) {
     loader.classList.add('loader');
     modalContent.appendChild(loader);
 
-    const extensions = ['webp', 'jpg', 'png'];
     const galleryContainer = document.createElement('div');
     galleryContainer.classList.add('scroll-gallery');
 
@@ -169,20 +168,18 @@ async function loadGallery(formattedProductName) {
     const images = [];
     while (true) {
         let found = false;
-        for (const ext of extensions) {
-            const imageUrl = `./images/${formattedProductName}/${index}.${ext}`;
-            try {
-                await loadImage(imageUrl);
-                const img = document.createElement('img');
-                img.src = imageUrl;
-                img.alt = `${formattedProductName} ${index}`;
-                galleryContainer.appendChild(img);
-                images.push(img); // Guardar la imagen en el array
-                found = true;
-                break;
-            } catch (error) {
-                continue;
-            }
+        const imageUrl = `./images/${formattedProductName}/${index}.webp`;
+        try {
+            await loadImage(imageUrl);
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = `${formattedProductName} ${index}`;
+            galleryContainer.appendChild(img);
+            images.push(img); // Guardar la imagen en el array
+            found = true;
+            break;
+        } catch (error) {
+            continue;
         }
         if (!found) break;
         index++;
