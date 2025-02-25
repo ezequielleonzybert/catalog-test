@@ -3,7 +3,7 @@ const categorias = document.getElementsByClassName('categorias')[0];
 const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
-fetch('data/products.csv')
+fetch('./data/products.csv')
     .then(response => response.text())
     .then(data => {
         productDataArray = parseCSV(data);
@@ -41,7 +41,7 @@ async function renderProducts(parsedProducts) {
         const formattedName = formatProductName(product.name);
 
         const img = document.createElement('img');
-        img.src = `images/${formattedName}/0.webp`
+        img.src = `./images/${formattedName}/0.webp`
         img.alt = product.name;
 
         productElement.appendChild(img);
@@ -170,7 +170,7 @@ async function loadGallery(formattedProductName) {
     while (true) {
         let found = false;
         for (const ext of extensions) {
-            const imageUrl = `images/${formattedProductName}/${index}.${ext}`;
+            const imageUrl = `./images/${formattedProductName}/${index}.${ext}`;
             try {
                 await loadImage(imageUrl);
                 const img = document.createElement('img');
