@@ -4,9 +4,19 @@ const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
 const isGitHubPages = location.hostname === 'ezequielleonzybert.github.io';
-const baseUrl = isGitHubPages
-    ? ''
-    : '';
+const baseUrl;
+const fontLink = document.createElement("link");
+fontLink.rel = "stylesheet";
+if (isGitHubPages) {
+    baseUrl = '';
+    fontLink.href = 'fonts/'
+}
+else {
+    baseUrl = '';
+    fontLink.href = 'fonts/'
+}
+
+document.head.appendChild(fontLink);
 
 fetch('data/products.csv')
     .then(response => response.text())
