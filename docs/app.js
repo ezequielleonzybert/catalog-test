@@ -3,20 +3,19 @@ const categorias = document.getElementsByClassName('categorias')[0];
 const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
-const isGitHubPages = location.hostname === 'ezequielleonzybert.github.io';
-let baseUrl;
-const fontLink = document.createElement("link");
-fontLink.rel = "stylesheet";
-if (isGitHubPages) {
-    baseUrl = '';
-    fontLink.href = 'fonts/'
-}
-else {
-    baseUrl = '';
-    fontLink.href = 'fonts/'
-}
-
-document.head.appendChild(fontLink);
+// const isGitHubPages = location.hostname === 'ezequielleonzybert.github.io';
+// let baseUrl;
+// const fontLink = document.createElement("link");
+// fontLink.rel = "stylesheet";
+// if (isGitHubPages) {
+//     baseUrl = '';
+//     fontLink.href = 'fonts/'
+// }
+// else {
+//     baseUrl = '';
+//     fontLink.href = 'fonts/'
+// }
+// document.head.appendChild(fontLink);
 
 fetch('data/products.csv')
     .then(response => response.text())
@@ -54,10 +53,9 @@ async function renderProducts(parsedProducts) {
         productElement.setAttribute('data-tags', product.tags);
 
         const formattedName = formatProductName(product.name);
-        const imageUrl = `${baseUrl}images/${formattedName}/0.webp`;
 
         const img = document.createElement('img');
-        img.src = imageUrl;
+        img.src = `images/${formattedName}/0.webp`
         img.alt = product.name;
 
         productElement.appendChild(img);
@@ -186,7 +184,7 @@ async function loadGallery(formattedProductName) {
     while (true) {
         let found = false;
         for (const ext of extensions) {
-            const imageUrl = `${baseUrl}images/${formattedProductName}/${index}.${ext}`;
+            const imageUrl = `images/${formattedProductName}/${index}.${ext}`;
             try {
                 await loadImage(imageUrl);
                 const img = document.createElement('img');
