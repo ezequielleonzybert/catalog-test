@@ -142,15 +142,11 @@ productCatalog.addEventListener('click', (event) => {
 
 async function loadImage(url) {
     try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`Error cargando imagen: ${response.status}`);
-
-        const blob = await response.blob();
-        const objectURL = URL.createObjectURL(blob);
-
-        return objectURL; // Devuelve la URL para usar en <img>
-    } catch (error) {
-        throw new Error(`No se pudo cargar la imagen: ${url}`);
+        const response = await fetch(url, { method: 'HEAD' });
+        if (!response.ok) return null;
+        return url;
+    } catch {
+        return null;
     }
 }
 
@@ -165,24 +161,18 @@ async function loadGallery(formattedProductName) {
     galleryContainer.classList.add('scroll-gallery');
 
     let index = 1;
-    const images = [];
+    let images = [];
 
     while (true) {
         const imageUrl = `./images/${formattedProductName}/${index}.webp`;
+        const loadedImage = await loadImage(imageUrl);
 
-        try {
-            const loadedImage = await loadImage(imageUrl);
-
-            const img = document.createElement("img");
-            img.src = loadedImage;
-            img.alt = `${formattedProductName} ${index}`;
-            galleryContainer.appendChild(img);
-            images.push(img);
-        } catch (error) {
-            console.error("No se encontró la imagen:", imageUrl);
-            break;
-        }
-
+        if (!loadedImage) break; // Si no se encuentra, termina el bucle
+        const img = document.createElement("img");
+        img.src = loadedImage;
+        img.alt = `${formattedProductName} ${index}`;
+        galleryContainer.appendChild(img);
+        images.push(img);
         index++;
     }
 
