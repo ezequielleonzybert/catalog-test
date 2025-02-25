@@ -25,11 +25,6 @@ function parseCSV(data) {
     });
 }
 
-
-function formatProductName(name) {
-    return name.toLowerCase().replace(/ /g, '_');
-}
-
 async function renderProducts(parsedProducts) {
     productCatalog.innerHTML = '';
     for (const product of parsedProducts) {
@@ -38,7 +33,7 @@ async function renderProducts(parsedProducts) {
         productElement.setAttribute('data-category', product.category);
         productElement.setAttribute('data-tags', product.tags);
 
-        const formattedName = formatProductName(product.name);
+        const formattedName = cleanText(product.name);
 
         const img = document.createElement('img');
         img.src = `./images/${formattedName}/0.webp`
@@ -146,12 +141,17 @@ productCatalog.addEventListener('click', (event) => {
 });
 
 async function loadImage(url) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve(url);
-        img.onerror = () => reject(url);
-        img.src = url;
-    });
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Error cargando imagen: ${response.status}`);
+
+        const blob = await response.blob();
+        const objectURL = URL.createObjectURL(blob);
+
+        return objectURL; // Devuelve la URL para usar en <img>
+    } catch (error) {
+        throw new Error(`No se pudo cargar la imagen: ${url}`);
+    }
 }
 
 async function loadGallery(formattedProductName) {
@@ -166,26 +166,26 @@ async function loadGallery(formattedProductName) {
 
     let index = 1;
     const images = [];
+
     while (true) {
-        let found = false;
         const imageUrl = `./images/${formattedProductName}/${index}.webp`;
+
         try {
-            await loadImage(imageUrl);
-            const img = document.createElement('img');
-            img.src = imageUrl;
+            const loadedImage = await loadImage(imageUrl);
+
+            const img = document.createElement("img");
+            img.src = loadedImage;
             img.alt = `${formattedProductName} ${index}`;
             galleryContainer.appendChild(img);
-            images.push(img); // Guardar la imagen en el array
-            found = true;
-            break;
+            images.push(img);
         } catch (error) {
-            continue;
+            console.error("No se encontró la imagen:", imageUrl);
+            break;
         }
-        if (!found) break;
+
         index++;
     }
 
-    // Ocultar el loader cuando todas las imágenes hayan cargado
     loader.remove();
 
     // Crear el contenedor de puntos
@@ -240,7 +240,7 @@ function openModal(productData) {
     if (!productData) return;
 
     // Cargar imágenes
-    loadGallery(formatProductName(productData.name));
+    loadGallery(cleanText(productData.name));
 
     // Insertar los datos en el modal
     const modalContent = document.querySelector('.modal-content');
@@ -311,7 +311,6 @@ window.addEventListener("popstate", (event) => {
         closeModal();
     }
 });
-
 
 function cleanText(texto) {
     return texto
@@ -389,14 +388,14 @@ function snapToNearestImage(galleryContainer) {
 
 //LOADER ANIMATION
 
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const pageLoader = document.getElementById('page-loader');
+// window.addEventListener('load', () => {
+//     setTimeout(() => {
+//         const pageLoader = document.getElementById('page-loader');
 
-        // Oculta el loader
-        pageLoader.style.display = 'none';
+//         // Oculta el loader
+//         pageLoader.style.display = 'none';
 
-        // Muestra el contenido
-        document.body.classList.remove('hidden');
-    }, 1500); // 2000 milisegundos = 2 segundos
-});
+//         // Muestra el contenido
+//         document.body.classList.remove('hidden');
+//     }, 1500); // 2000 milisegundos = 2 segundos
+// });
