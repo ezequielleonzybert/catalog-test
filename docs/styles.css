@@ -420,6 +420,11 @@ nav.menu {
         transform: translateY(-50%);
         /* display: none; */
     }
+
+    .arrow-side {
+        display: none;
+
+    }
 }
 
 #page-loader {

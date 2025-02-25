@@ -14,7 +14,10 @@ fetch('./data/products.csv')
 function parseCSV(data) {
     const rows = data.split('\n').slice(1); // Omitir la cabecera
     return rows.map(row => {
-        const [name, price, description, category, tags] = row.split(',');
+        const values = row.match(/(".*?"|[^,]+)/g).map(val =>
+            val.replace(/^"|"$/g, '').trim() // Quitar comillas dobles externas
+        );
+        const [name, price, description, category, tags] = values;
         return {
             name,
             price,
