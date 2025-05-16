@@ -153,6 +153,12 @@ nav.menu {
     font-weight: 600;
 }
 
+.product p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #ba5526;
+}
+
 .modal {
     position: fixed;
     z-index: 100;
@@ -197,7 +203,18 @@ nav.menu {
     border-radius: 3px;
     margin: 10px;
     cursor: zoom-in;
-    /* background-color: #d4976e; */
+    background-color: #ba5526;
+    background-image: "url(images/loading.png)";
+}
+
+@keyframes moverFondo {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 .scroll-gallery::-webkit-scrollbar {
@@ -210,10 +227,6 @@ nav.menu {
     scroll-snap-align: start;
     object-fit: contain;
     flex: 0 0 100%;
-
-    background-image: url('data:image/svg+xml,<svg width="10" height="10" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="50" fill="black"><animate attributeName="r" from="50" to="70" dur="1.5s" repeatCount="indefinite" /><animate attributeName="opacity" from="1" to="0" dur="1.5s" repeatCount="indefinite" /></circle></svg>');
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 .product-info {

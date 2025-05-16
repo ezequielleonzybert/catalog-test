@@ -56,6 +56,7 @@ async function renderProducts(parsedProducts) {
         const formattedPrice = Number(product.price).toLocaleString('es-AR');
         productElement.innerHTML += `
             <h2>${product.name}</h2>
+            <p>$${formattedPrice}</p>
         `;
 
         productCatalog.appendChild(productElement);
