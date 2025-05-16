@@ -189,6 +189,7 @@ nav.menu {
 }
 
 .scroll-gallery {
+    width: 100%;
     flex: 0.6;
     display: flex;
     flex-direction: row;
