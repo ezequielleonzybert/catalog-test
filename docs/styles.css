@@ -203,7 +203,7 @@ nav.menu {
     border-radius: 3px;
     margin: 10px;
     cursor: zoom-in;
-    background-image: "url(images/loading.png)";
+    background-image: url('images/loading.png');
 }
 
 @keyframes moverFondo {
