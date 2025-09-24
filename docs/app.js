@@ -3,7 +3,7 @@ const categorias = document.getElementsByClassName('categorias')[0];
 const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
-let priceMultiplier = 2.5
+let priceMultiplier = 1.2
 
 fetch('./data/products.csv')
     .then(response => response.text())
@@ -271,7 +271,7 @@ function openModal(productData) {
 
     loadGallery(cleanText(productData.name));
 
-    const formattedPrice = Number(productData.price).toLocaleString('es-AR');
+    const formattedPrice = Number(productData.price * priceMultiplier).toLocaleString('es-AR');
     modalContent.innerHTML = `
         <div class="product-info">
             <h2>${productData.name}</h2>
