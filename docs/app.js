@@ -4,7 +4,7 @@ const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
 // Ajuste general de precios
-const PRICE_ADJUST = 1.15; // 15% de aumento global
+const PRICE_ADJUST = 1.2; // aumento global
 
 fetch('./data/products.csv')
     .then(response => response.text())
