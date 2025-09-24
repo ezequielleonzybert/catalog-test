@@ -189,8 +189,6 @@ nav.menu {
 }
 
 .scroll-gallery {
-    width: 100%;
-    aspect-ratio: 1 / 1;
     flex: 0.6;
     display: flex;
     flex-direction: row;
@@ -205,7 +203,6 @@ nav.menu {
     border-radius: 3px;
     margin: 10px;
     cursor: zoom-in;
-    /* background-image: url('images/loading.png'); */
 }
 
 @keyframes moverFondo {
