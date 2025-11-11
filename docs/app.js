@@ -3,7 +3,7 @@ const categorias = document.getElementsByClassName('categorias')[0];
 const arrow = document.getElementById('arrow');
 let productDataArray = [];
 
-let priceMultiplier = 4000
+let priceMultiplier = 4500
 
 fetch('./data/products.csv')
     .then(response => response.text())
